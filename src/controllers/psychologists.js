@@ -1,7 +1,5 @@
-import {
-  getAllPsychologists,
-  getPsychologistById,
-} from '../services/psychologists.js';
+import createHttpError from 'http-errors';
+import { getAllPsychologists, getPsychologistById } from '../services/psychologists.js';
 
 export const getAllPsychologistsController = async (req, res) => {
   const data = await getAllPsychologists();
@@ -14,14 +12,10 @@ export const getAllPsychologistsController = async (req, res) => {
 };
 export const getPsychologistByIdController = async (req, res) => {
   const { psychologistId } = req.params;
-  console.log('controller-----', psychologistId);
-  const data = await getPsychologistById(psychologistId);
 
+  const data = await getPsychologistById(psychologistId);
   if (!data) {
-    res.status(404).json({
-      status: 404,
-      message: `Psychologist by id: ${psychologistId} not found`,
-    });
+    throw createHttpError(404, `Psychologist by id: ${psychologistId} not found`);
   }
 
   res.status(200).json({

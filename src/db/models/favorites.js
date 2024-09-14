@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
 import { reviewSchema } from './reviews.js';
 
-const psychologistsSchema = new Schema(
+const favoriteSchema = new Schema(
   {
     name: {
       type: String,
@@ -46,10 +46,24 @@ const psychologistsSchema = new Schema(
       type: String,
       required: true,
     },
+    userId: {
+      type: String,
+      ref: 'user',
+      required: true,
+    },
+    isFavorite: {
+      type: Boolean,
+      required: true,
+    },
+    firstId: {
+      type: Schema.Types.ObjectId,
+      required: true,
+    },
   },
   {
     versionKey: false,
+    timestamps: true,
   },
 );
 
-export const PsychologistsCollection = model('psychologists', psychologistsSchema);
+export const FavoriteCollection = model('favorites', favoriteSchema);

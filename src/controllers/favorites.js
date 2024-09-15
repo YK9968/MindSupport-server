@@ -26,7 +26,7 @@ export const addFavoritesPsychologistsController = async (req, res) => {
 export const deleteFavoritesPsychologistsController = async (req, res, next) => {
   const { psychologistId } = req.params;
 
-  const data = await deleteFavoritesPsychologists({ userId: '1', firstId: psychologistId });
+  const data = await deleteFavoritesPsychologists({ userId: '1', mainId: psychologistId });
   if (!data) {
     next(createHttpError(404, 'Psychologist not found'));
     return;

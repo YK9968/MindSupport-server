@@ -1,5 +1,6 @@
 import { Schema, model } from 'mongoose';
 import { reviewSchema } from './reviews.js';
+import { saveError } from './hooks.js';
 
 const favoriteSchema = new Schema(
   {
@@ -47,7 +48,7 @@ const favoriteSchema = new Schema(
       required: true,
     },
     userId: {
-      type: String,
+      type: Schema.Types.ObjectId,
       ref: 'user',
       required: true,
     },
@@ -55,7 +56,7 @@ const favoriteSchema = new Schema(
       type: Boolean,
       required: true,
     },
-    firstId: {
+    mainId: {
       type: Schema.Types.ObjectId,
       required: true,
     },
@@ -65,5 +66,7 @@ const favoriteSchema = new Schema(
     timestamps: true,
   },
 );
+
+favoriteSchema.post('save', saveError);
 
 export const FavoriteCollection = model('favorites', favoriteSchema);

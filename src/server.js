@@ -5,6 +5,7 @@ import psychologistsRouter from './routes/psychologists.js';
 import favoritesRouter from './routes/favorites.js';
 import errorHandler from './middlewares/errorHandler.js';
 import notFoundHandler from './middlewares/notFoundHandler.js';
+import authRouter from './routes/auth.js';
 
 const PORT = Number(env('PORT', '3000'));
 export default function setupServer(second) {
@@ -14,6 +15,7 @@ export default function setupServer(second) {
 
   app.use('/psychologists', psychologistsRouter);
   app.use('/favorites', favoritesRouter);
+  app.use('/auth', authRouter);
 
   app.use('*', notFoundHandler);
   app.use(errorHandler);
